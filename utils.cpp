@@ -1,9 +1,11 @@
 #include "utils.hpp"
+#include"termcolor.hpp"
 #include <iostream>
 #include <unistd.h> 
 #include <sys/wait.h>
 #include <limits>
-#include<vector>
+#include <vector>
+
 
 using namespace std;
 
@@ -62,20 +64,79 @@ void parseCommand(string cmd,vector<string>& cmdTokens){
 
 }
 
+bool executeCustomCommand(vector<string> cmdTokens){
+
+    vector<string> CUSTOM_COMMANDS{ //order of commands is important as it is
+                                    //used below in switch
+        "help-me",
+        "about-the-creator",
+        "cd", // unix cd command
+        "goto", // alias to cd for kids
+        "bye"
+        
+    };
+    int CUSTOM_CMD_NO=-1;
+
+    for(int i=0;i<CUSTOM_COMMANDS.size();i++){
+        
+        if(cmdTokens[0]==CUSTOM_COMMANDS[i]){
+            CUSTOM_CMD_NO=i;
+            break;
+        }
+        
+    }
+
+    if(CUSTOM_CMD_NO==-1){
+        return false;
+    }
+
+    switch(CUSTOM_CMD_NO){
+        case 0:
+            cout<<"help menu\n";
+            return true;
+        case 1:
+            cout<<"i am pg. Hi\n";
+            return true;
+        case 2:
+            chdir((char *)cmdTokens[1].c_str());
+            return true;
+        case 3:
+            chdir((char *)cmdTokens[1].c_str());
+            return true;
+        case 4:
+            cout<<"GoodBye!\n";
+            exit(0);
+
+        default:
+            cout<<"some error has occured\n";
+            return false;
+    }
+
+}
+
 void executeCommand(vector<string> cmdTokens){
     
-    char *args[2];
-    args[0]=(char *)cmdTokens[0].c_str();
-    args[1]= NULL;
+    if(executeCustomCommand(cmdTokens)){
+        return;
+    }
+    // var tokenCount is for total token in *args (args[] will be passed to exec)
+    int tokenCount=cmdTokens.size() +1; // adding +1 for NULL at last 
+    char *args[tokenCount];
+    for(int i=0;i<cmdTokens.size();i++){
+        args[i]=(char *)cmdTokens[i].c_str();
+    }
+    args[tokenCount-1]= NULL;
 
     pid_t pid=fork();
 
     if(pid<0){
-        cout<<"error forking a new process";
+        cout<<"error forking a new process\n";
         return;
     }else if(pid==0){
         //in child process
-        execvp(args[0],args);
+        if(execvp(args[0],args)<0){
+            cout<<"Command not found...\n";
+        }
 
     }else{
         //in parent process
