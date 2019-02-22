@@ -1,3 +1,3 @@
 all:
-	g++ shell.cpp -o shell
+	g++ shell.cpp utils.cpp -o shell
 	
