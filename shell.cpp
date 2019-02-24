@@ -22,7 +22,7 @@ int main(){
 
 	// shell 
 	do{
-		cout<<">";
+		// cout<<">";
 		COMMAND=fetchCommand();
 
 		if(COMMAND.length()){ // only parse command when non empty

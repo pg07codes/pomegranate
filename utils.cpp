@@ -5,6 +5,11 @@
 #include <sys/wait.h>
 #include <limits>
 #include <vector>
+#include<string>
+
+#include<readline/readline.h>
+#include<readline/history.h>
+
 
 
 using namespace std;
@@ -33,9 +38,16 @@ void initialiseShell(){
 }
 
 string fetchCommand(){
-    string cmd;
-    getline(cin,cmd);
-    return cmd;
+
+    char* cmd; 
+
+	cmd = readline(">"); //reads line and puts to cmd pointer
+	if (strlen(cmd) != 0) { // if not empty cmd
+		add_history(cmd); //add to command history 
+        string cmdString(cmd);// convert char* to std::string;
+        return cmdString;//return command string
+	}
+    return ""; // else return empty command string 
 }
 
 
