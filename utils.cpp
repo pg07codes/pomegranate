@@ -1,5 +1,7 @@
 #include "utils.hpp"
 #include"termcolor.hpp"
+#include "customCommands.hpp"
+
 #include <iostream>
 #include <unistd.h> 
 #include <sys/wait.h>
@@ -22,10 +24,12 @@ void initialiseShell(){
     CLEAR_SCREEN();
 
     //startup welcome screen and logo 
-    cout<<"welcome to pomegranate.\n";
+    cout<<termcolor::on_red;
+    cout<<" WELCOME TO POMEGRANATE :) \n";
+    cout<<termcolor::reset;
 
     //waiting for user to press enter key
-    cout<<"\nPress Enter To Continue.";
+    cout<<"\nPress enter to continue...";
     char x=cin.get();
     
     if(! (x=='\n')){ // discarding the input buffer if any other keys pressed
@@ -40,8 +44,7 @@ void initialiseShell(){
 string fetchCommand(){
 
     char* cmd; 
-
-	cmd = readline(">"); //reads line and puts to cmd pointer
+	cmd = readline(" ~~~> "); //reads line and puts to cmd pointer
 	if (strlen(cmd) != 0) { // if not empty cmd
 		add_history(cmd); //add to command history 
         string cmdString(cmd);// convert char* to std::string;
@@ -77,52 +80,8 @@ void parseCommand(string cmd,vector<string>& cmdTokens){
 }
 
 bool executeCustomCommand(vector<string> cmdTokens){
-
-    vector<string> CUSTOM_COMMANDS{ //order of commands is important as it is
-                                    //used below in switch
-        "help-me",
-        "about-the-creator",
-        "cd", // unix cd command
-        "goto", // alias to cd for kids
-        "bye"
-        
-    };
-    int CUSTOM_CMD_NO=-1;
-
-    for(int i=0;i<CUSTOM_COMMANDS.size();i++){
-        
-        if(cmdTokens[0]==CUSTOM_COMMANDS[i]){
-            CUSTOM_CMD_NO=i;
-            break;
-        }
-        
-    }
-
-    if(CUSTOM_CMD_NO==-1){
-        return false;
-    }
-
-    switch(CUSTOM_CMD_NO){
-        case 0:
-            cout<<"help menu\n";
-            return true;
-        case 1:
-            cout<<"i am pg. Hi\n";
-            return true;
-        case 2:
-            chdir((char *)cmdTokens[1].c_str());
-            return true;
-        case 3:
-            chdir((char *)cmdTokens[1].c_str());
-            return true;
-        case 4:
-            cout<<"GoodBye!\n";
-            exit(0);
-
-        default:
-            cout<<"some error has occured\n";
-            return false;
-    }
+    // all custom commands are handled in customCommands.cpp file.(modularity is better)
+    return customCommandsHandler(cmdTokens);
 
 }
 
