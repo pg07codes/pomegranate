@@ -8,3 +8,4 @@ std::string fetchCommand();
 void parseCommand(std::string, std::vector<std::string>&);
 void executeCommand(std::vector<std::string>);
 bool executeCustomCommand(std::vector<std::string>);
+std::vector<std::string> aliasChecker(std::vector<std::string>);

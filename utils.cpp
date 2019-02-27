@@ -69,13 +69,15 @@ void parseCommand(string cmd,vector<string>& cmdTokens){
             }
             
             cmdStart=i+1;
-            cmdCharCount=-1;
+            cmdCharCount=-1; // as then cmdCharCount++ will make it 0;
         }
         
         cmdCharCount++;
     }
 
-    cmdTokens.push_back(cmd.substr(cmdStart));
+    string lastToken=cmd.substr(cmdStart); // only insert last token to cmdTokens if it is non-space command 
+    if(lastToken.find_first_not_of(' ') != string::npos)
+    cmdTokens.push_back(lastToken);
 
 }
 
@@ -90,6 +92,11 @@ void executeCommand(vector<string> cmdTokens){
     if(executeCustomCommand(cmdTokens)){
         return;
     }
+
+    // aliasChecker - used to alter tokens of cmd if it just an alias to already existing cmd in system
+    cmdTokens=aliasChecker(cmdTokens);
+
+
     // var tokenCount is for total token in *args (args[] will be passed to exec)
     int tokenCount=cmdTokens.size() +1; // adding +1 for NULL at last 
     char *args[tokenCount];
@@ -105,6 +112,7 @@ void executeCommand(vector<string> cmdTokens){
         return;
     }else if(pid==0){
         //in child process
+
         if(execvp(args[0],args)<0){
             cout<<"Command not found...\n";
         }
@@ -116,4 +124,38 @@ void executeCommand(vector<string> cmdTokens){
         wait(NULL);
         return ;
     }
+}
+
+vector<string> aliasChecker(vector<string> cmdTokens){
+
+    if(cmdTokens[0]=="showfiles"){
+        cmdTokens[0]="ls";
+        return cmdTokens;
+
+    }
+
+    if(cmdTokens[0]=="showallfiles"){
+        cmdTokens[0]="ls";
+        cmdTokens.push_back("-latr");
+        return cmdTokens;
+    }
+
+    if(cmdTokens[0]=="print"){
+        cmdTokens[0]="echo";
+        return cmdTokens;
+    }  
+
+    if(cmdTokens[0]=="createfile"){
+        cmdTokens[0]="touch";
+        return cmdTokens;
+    } 
+
+    if(cmdTokens[0]=="createfolder"){
+        cmdTokens[0]="mkdir";
+        return cmdTokens;
+    }       
+
+
+    return cmdTokens;
+
 }
