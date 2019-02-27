@@ -6,3 +6,4 @@
 bool customCommandsHandler(std::vector<std::string> cmdTokens);
 void openHelpMenu();
 void printCurrentDir();
+void webApiHandler(std::string);

@@ -13,7 +13,13 @@
 - https://www.geeksforgeeks.org/making-linux-shell-c/
 - https://www.lifewire.com/curl-definition-2184508
 
-`how to include external c++ linux libraries on linux?? - thanks to these.`
+`how did i include external c++ linux libraries on linux??? - thanks to these.`
 - https://stackoverflow.com/questions/24233138/how-to-compile-curlpp-on-ubuntu
 - https://stackoverflow.com/questions/26854794/compile-issues-with-curlpp-undefined-reference-to-symbol-curl-easy-setoptcur
 - https://stackoverflow.com/questions/10358745/how-to-use-libraries
+
+### some more FEATURES i will be working on.
+- a hack mod for kids(sci fi movie style - random cmds running with no key actually working)
+- opening explorer (file descriptor problem to solve).
+- more more more custom commands for ease of use.
+- implementing config(profiles) files for custom experience.
