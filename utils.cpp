@@ -145,7 +145,7 @@ vector<string> aliasChecker(vector<string> cmdTokens){
         return cmdTokens;
     }  
 
-    if(cmdTokens[0]=="createfile"){
+    if(cmdTokens[0]=="create"){
         cmdTokens[0]="touch";
         return cmdTokens;
     } 
@@ -153,7 +153,53 @@ vector<string> aliasChecker(vector<string> cmdTokens){
     if(cmdTokens[0]=="createfolder"){
         cmdTokens[0]="mkdir";
         return cmdTokens;
-    }       
+    } 
+
+    if(cmdTokens[0]=="copy"){
+        cmdTokens[0]="cp";
+        if(cmdTokens[2]=="to")
+        cmdTokens.erase(cmdTokens.begin()+2);
+        else{ // if 3 param is not 'to', we make sure command not found error shows up.
+            string commandNotExist="command-not-found-123";
+            cmdTokens[0]=commandNotExist; // changing the main cmd token to random string.
+            return cmdTokens;
+        }
+         
+        
+        return cmdTokens;
+    }
+
+    if(cmdTokens[0]=="cut"){
+        cmdTokens[0]="mv";
+        if(cmdTokens[2]=="paste")
+        cmdTokens.erase(cmdTokens.begin()+2);
+        else{ // if 3 param is not 'paste', we make sure command not found error shows up.
+            string commandNotExist="command-not-found-123";
+            cmdTokens[0]=commandNotExist; // changing the main cmd token to random string.
+            return cmdTokens;
+        }
+         
+        
+        return cmdTokens;
+    }
+
+
+
+    if(cmdTokens[0]=="delete"){
+        cmdTokens[0]="rm";
+        return cmdTokens;
+    }    
+
+    if(cmdTokens[0]=="deletefolder"){
+        cmdTokens[0]="rm";
+        
+        // reordering the tokens 
+        string temp=cmdTokens[1];
+        cmdTokens[1]="-rf";
+        cmdTokens.push_back(temp);
+        
+        return cmdTokens;
+    } 
 
 
     return cmdTokens;

@@ -27,13 +27,17 @@ bool customCommandsHandler(vector<string> cmdTokens){
         "showfiles",
         "showallfiles",
         "print",
-        "createfile",
+        "create",
         "createfolder",
         "tellmeajoke",
         "tellmeafact",
         "ilovenumbers",
         "whatsmyip",
-        "bored"
+        "bored",
+        "copy",
+        "cut",
+        "delete",
+        "deletefolder"
 
         
     };
@@ -106,6 +110,18 @@ bool customCommandsHandler(vector<string> cmdTokens){
         case 15:
             webApiHandler("bored");
             return true;
+        case 16:
+            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            return false;
+        case 17:
+            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            return false;
+        case 18:
+            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            return false;
+        case 19:
+            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            return false;
 
         default:
             cout<<"some error has occured\n";
