@@ -184,7 +184,6 @@ vector<string> aliasChecker(vector<string> cmdTokens){
     }
 
 
-
     if(cmdTokens[0]=="delete"){
         cmdTokens[0]="rm";
         return cmdTokens;
@@ -201,7 +200,26 @@ vector<string> aliasChecker(vector<string> cmdTokens){
         return cmdTokens;
     } 
 
+    if(cmdTokens[0]=="read"){
+        cmdTokens[0]="cat";
+        return cmdTokens;
+    } 
 
-    return cmdTokens;
+    if(cmdTokens[0]=="rename"){
+        cmdTokens[0]="mv";
+        
+        if(cmdTokens[2]=="to")
+        cmdTokens.erase(cmdTokens.begin()+2);
+        else{ // if 3 param is not 'to', we make sure command not found error shows up.
+            string commandNotExist="command-not-found-123";
+            cmdTokens[0]=commandNotExist; // changing the main cmd token to random string.
+            return cmdTokens;
+        }
+        
+        return cmdTokens;
+    }
+
+
+    return cmdTokens; // if none matches, return the unchanged cmdTokens
 
 }

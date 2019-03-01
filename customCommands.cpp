@@ -37,7 +37,10 @@ bool customCommandsHandler(vector<string> cmdTokens){
         "copy",
         "cut",
         "delete",
-        "deletefolder"
+        "deletefolder",
+        "read",
+        "rename",
+        "choose"
 
         
     };
@@ -111,17 +114,25 @@ bool customCommandsHandler(vector<string> cmdTokens){
             webApiHandler("bored");
             return true;
         case 16:
-            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            // as it is just an alias to cp , we return false -> aliasChecker and system will handle it.
             return false;
         case 17:
-            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            // as it is just an alias to mv , we return false -> aliasChecker and system will handle it.
             return false;
         case 18:
-            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            // as it is just an alias to rm , we return false -> aliasChecker and system will handle it.
             return false;
         case 19:
-            // as it is just an alias to mkdir , we return false -> aliasChecker and system will handle it.
+            // as it is just an alias to "rm -rf" , we return false -> aliasChecker and system will handle it.
             return false;
+        case 20:
+            // as it is just an alias to cat , we return false -> aliasChecker and system will handle it.
+            return false;
+        case 21:
+            // as it is just an alias to "mv(for rename)" , we return false -> aliasChecker and system will handle it.
+            return false;
+        case 22:
+            return chooseHandler(cmdTokens);
 
         default:
             cout<<"some error has occured\n";
@@ -182,6 +193,38 @@ void webApiHandler(string choice){
       cout<<"Internet seems to be down!"<<endl;
       cout << e.what() << endl;
   }
+
+}
+
+bool isNum(string s)
+{
+    auto it = s.begin();
+    while (it != s.end() && isdigit(*it))
+    it++;
+    return it == s.end();
+}
+
+bool chooseHandler(vector<string> cmdTokens){ // helps you make decisions (random-choices)
+
+    bool isNumber=isNum(cmdTokens[1]);
+    
+    if(cmdTokens[2]=="in" && isNumber){
+        int options=cmdTokens.size()-3; // minus "choose" , [number], "in", 
+        int toChoose=stoi(cmdTokens[1]);
+        
+        vector<string> result;
+
+        // generate random numbers and insert into result from options and output the result(PENDING)
+
+
+
+
+
+        return true;
+    }
+
+    return false;
+
 
 }
  
