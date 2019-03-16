@@ -16,7 +16,8 @@ int main(){
 	bool STATUS=true;
 	string COMMAND="";
 	vector<string> cmdTokens;
-	//shell initialising screen
+
+	//initialising shell console screen
 	initialiseShell();
 	
 

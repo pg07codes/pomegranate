@@ -219,6 +219,12 @@ vector<string> aliasChecker(vector<string> cmdTokens){
         return cmdTokens;
     }
 
+    if(cmdTokens[0]=="open"){
+        cmdTokens[0]="xdg-open";
+        return cmdTokens;
+
+    }
+
 
     return cmdTokens; // if none matches, return the unchanged cmdTokens
 

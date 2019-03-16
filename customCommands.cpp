@@ -18,7 +18,7 @@ bool customCommandsHandler(vector<string> cmdTokens){
 
     vector<string> CUSTOM_COMMANDS{ //order of commands is important as it is
                                     //used below in switch
-        "help-me",
+        "helpme",
         "whereami",
         "cd", // this (for some reason) has to be implemented custom or it don't work
         "moveto", 
@@ -40,7 +40,9 @@ bool customCommandsHandler(vector<string> cmdTokens){
         "deletefolder",
         "read",
         "rename",
-        "choose"
+        "choose",
+        "open",
+
 
         
     };
@@ -133,6 +135,9 @@ bool customCommandsHandler(vector<string> cmdTokens){
             return false;
         case 22:
             return chooseHandler(cmdTokens);
+        case 23:
+            // handled by xdg-open , we return false -> aliasChecker and system will handle it.
+            return false;
 
         default:
             cout<<"some error has occured\n";

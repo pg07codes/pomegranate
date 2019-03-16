@@ -4,7 +4,7 @@
 ```
 
 ## issues to fix
-- last args is " " in args passed to exec. remove it.
+- opening explorer (file descriptor problem to solve).
 
 ### some articles and blogs i googled while building it
 - https://medium.com/coding-blocks/make-and-cmake-automating-c-build-process-900f569a75db
@@ -20,6 +20,9 @@
 
 ### some more FEATURES i will be working on.
 - a hack mod for kids(sci fi movie style - random cmds running with no key actually working)
-- opening explorer (file descriptor problem to solve).
 - more more more custom commands for ease of use.
 - implementing config(profiles) files for custom experience.
+
+### some steps to automate -
+- to use a new process to open file-explorer, use xdg-open and use the command below to remove error it may return. 
+- `sudo apt-get install samba-common-bin | sudo mkdir -p /var/lib/samba/usershares/`
