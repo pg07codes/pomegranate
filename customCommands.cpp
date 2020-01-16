@@ -13,6 +13,8 @@
 
 using namespace std;
 
+vector<string> CUSTOM_COMMANDS_GLOBAL;
+
 bool customCommandsHandler(vector<string> cmdTokens){
 
 
@@ -46,6 +48,9 @@ bool customCommandsHandler(vector<string> cmdTokens){
 
         
     };
+
+    CUSTOM_COMMANDS_GLOBAL= CUSTOM_COMMANDS;
+    
     int CUSTOM_CMD_NO=-1;
 
     for(int i=0;i<CUSTOM_COMMANDS.size();i++){
@@ -148,7 +153,13 @@ bool customCommandsHandler(vector<string> cmdTokens){
 
 
 void openHelpMenu(){
-    cout<<"help menu will soon be here.\n";
+    
+    cout<< "WELCOME TO POMEGRANATE HELP YOU\n\n";
+    cout<<"Few commands you can use are -\n";
+    for(string i : CUSTOM_COMMANDS_GLOBAL){
+        cout<< i <<"\n"; 
+    }
+
 }
 void printCurrentDir(){
 
